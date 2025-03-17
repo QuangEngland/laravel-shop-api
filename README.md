@@ -127,4 +127,4 @@ We welcome contributions! Please fork the repository and submit a pull request.
 This project is licensed under the MIT License.
 
 ## Contact
-For any inquiries, reach out via email at support@yourdomain.com or open an issue on GitHub.
+For any inquiries, reach out via email at [kieuvanquanganh@gmail.com](mailto:kieuvanquanganh@gmail.com) or open an issue on GitHub.
