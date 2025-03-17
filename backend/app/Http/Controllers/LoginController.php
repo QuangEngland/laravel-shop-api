@@ -20,19 +20,33 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
+
+            if (!($user instanceof \App\Models\User)) {
+                return response()->json(['error' => 'User not found'], 400);
+            }
+
             $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'access_token' => $token,
-                'token_type' => 'Bearer',
-                'user' => $user,
+                'roles' => $user->getRoleNames()->first(),
+                'user_name' => $user->name,
             ], 200);
         }
 
-
         return response()->json([
-            'message' => 'Thông tin đăng nhập không chính xác.',
+            'message' => 'Login failed',
         ], 401);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        if ($user) {
+            $user->tokens()->delete();
+            return response()->json(['message' => 'Logout successfully'], 200);
+        }
+        return response()->json(['message' => 'User not found'], 400);
     }
 
     /**
